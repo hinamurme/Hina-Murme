@@ -16,8 +16,12 @@ const roles = [
 ];
 
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const GROQ_API_URL = process.env.GROQ_API_URL;
+const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+const GROQ_API_URL = process.env.NEXT_PUBLIC_GROQ_API_URL;
+
+console.log("GROQ_API_KEY", GROQ_API_KEY);
+console.log("GROQ_API_URL", GROQ_API_URL);
+
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentRole, setCurrentRole] = useState(0);
