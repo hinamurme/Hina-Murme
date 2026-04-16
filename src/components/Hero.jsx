@@ -15,9 +15,9 @@ const roles = [
   "MongoDB Database Developer"
 ];
 
-import { env } from "next/config";
-const { GROQ_API_KEY, GROQ_API_URL } = env;
 
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const GROQ_API_URL = process.env.GROQ_API_URL;
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [currentRole, setCurrentRole] = useState(0);
