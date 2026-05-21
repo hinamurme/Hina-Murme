@@ -339,20 +339,7 @@ const quickLinks = [
                 </p>
               </div>
 
-              {/* Legal Links */}
-              <div className="flex gap-3 sm:gap-4 md:gap-6">
-                {["Privacy", "Terms", "Sitemap"].map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href="#"
-                    className="text-gray-500 hover:text-cyan-300 text-xs sm:text-sm transition-colors duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {link}
-                  </motion.a>
-                ))}
-              </div>
+ 
 
               {/* Back to Top Mobile */}
               <motion.button

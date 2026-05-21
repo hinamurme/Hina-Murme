@@ -14,7 +14,7 @@ export const metadata = {
     siteName: "Hina Portfolio",
     images: [
       {
-        url: "/pic.jpg", // Put your banner in /public
+        url: "/pic.png", // Put your banner in /public
         width: 1200,
         height: 630,
         alt: "Hina Portfolio",

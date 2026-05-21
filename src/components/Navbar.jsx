@@ -7,20 +7,32 @@ import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { RiSunLine, RiMoonLine } from "react-icons/ri";
 import Chatbot from "@/components/Chatbot";
 
-
 // Move constants outside component
 const navLinks = [
   { id: "home", label: "Home", icon: "🏠" },
   { id: "about", label: "About", icon: "👩‍💻" },
-  { id: "projects", label: "Projects", icon: "🚀" },
-  { id: "skills", label: "Skills", icon: "⚡" },
+  { id: "experience", label: "Experience", icon: "👨‍💼" },
+  { id: "projects", label: "Work", icon: "🚀" },
+  // { id: "skills", label: "Skills", icon: "⚡" },
   { id: "contact", label: "Contact", icon: "📧" },
 ];
 
 const socialLinks = [
-  { icon: <FiGithub />, href: "https://github.com/hinamurme", color: "hover:text-purple-400" },
-  { icon: <FiLinkedin />, href: "https://linkedin.com/in/hinamurme", color: "hover:text-blue-400" },
-  { icon: <FiMail />, href: "mailto:murmehina45@gmail.com", color: "hover:text-pink-400" },
+  {
+    icon: <FiGithub />,
+    href: "https://github.com/hinamurme",
+    color: "hover:text-purple-400",
+  },
+  {
+    icon: <FiLinkedin />,
+    href: "https://linkedin.com/in/hinamurme",
+    color: "hover:text-blue-400",
+  },
+  {
+    icon: <FiMail />,
+    href: "mailto:murmehina45@gmail.com",
+    color: "hover:text-pink-400",
+  },
 ];
 
 export default function Navbar() {
@@ -35,24 +47,28 @@ export default function Navbar() {
   // Initialize dark mode from localStorage (only on client)
   useEffect(() => {
     setMounted(true);
-    
+
     try {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
         setDarkMode(true);
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark");
       } else {
         setDarkMode(false);
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     } catch (error) {
       // Fallback to system preference if localStorage fails
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
       setDarkMode(prefersDark);
       if (prefersDark) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark");
       }
     }
   }, []);
@@ -61,18 +77,18 @@ export default function Navbar() {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     if (!darkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
       try {
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem("theme", "dark");
       } catch (error) {
-        console.warn('Could not save theme preference:', error);
+        console.warn("Could not save theme preference:", error);
       }
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
       try {
-        localStorage.setItem('theme', 'light');
+        localStorage.setItem("theme", "light");
       } catch (error) {
-        console.warn('Could not save theme preference:', error);
+        console.warn("Could not save theme preference:", error);
       }
     }
   };
@@ -80,7 +96,7 @@ export default function Navbar() {
   // Mouse tracking for background glow (only when mounted)
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -91,11 +107,11 @@ export default function Navbar() {
   // Scroll effect
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
-      const currentSection = navLinks.find(section => {
+
+      const currentSection = navLinks.find((section) => {
         const element = document.getElementById(section.id);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -103,13 +119,13 @@ export default function Navbar() {
         }
         return false;
       });
-      
+
       if (currentSection) setActiveSection(currentSection.id);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial check
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mounted]); // Removed navLinks dependency since it's now constant
 
@@ -181,7 +197,7 @@ export default function Navbar() {
               className="relative group"
             >
               <Link
-                href="#home"
+                href="#about"
                 onClick={() => setActiveSection("home")}
                 className="relative z-10"
               >
@@ -190,7 +206,11 @@ export default function Navbar() {
                   <motion.div
                     className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center"
                     animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 20,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     <div className="absolute inset-1 rounded-lg bg-gray-900"></div>
                     <span className="relative text-lg font-bold bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">
@@ -199,7 +219,7 @@ export default function Navbar() {
                     {/* Glow effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
                   </motion.div>
-                  
+
                   {/* Text logo */}
                   <div className="flex flex-col">
                     <span className="text-xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
@@ -211,7 +231,6 @@ export default function Navbar() {
                       animate={{ width: "100%" }}
                       transition={{ duration: 0.5, delay: 0.8 }}
                     />
-                
                   </div>
                 </div>
               </Link>
@@ -245,7 +264,8 @@ export default function Navbar() {
                       <motion.span
                         animate={{
                           scale: activeSection === link.id ? 1.2 : 1,
-                          rotate: activeSection === link.id ? [0, 10, -10, 0] : 0,
+                          rotate:
+                            activeSection === link.id ? [0, 10, -10, 0] : 0,
                         }}
                         transition={{ duration: 0.3 }}
                         className="text-lg"
@@ -296,29 +316,7 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Dark Mode Toggle */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={toggleDarkMode}
-                className="relative p-2 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50"
-                aria-label="Toggle dark mode"
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div
-                    key={darkMode ? 'dark' : 'light'}
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 20, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className={darkMode ? "text-yellow-300" : "text-indigo-300"}
-                  >
-                    {darkMode ? <RiSunLine size={20} /> : <RiMoonLine size={20} />}
-                  </motion.div>
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 to-indigo-500/0 rounded-xl hover:from-yellow-500/10 hover:to-indigo-500/10 transition-all duration-300" />
-              </motion.button>
-
+    
               {/* CTA Button */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -326,15 +324,11 @@ export default function Navbar() {
                 className="relative group"
               >
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-              
               </motion.div>
             </div>
 
             {/* Mobile menu button */}
-            <motion.div 
-              className="lg:hidden"
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.div className="lg:hidden" whileTap={{ scale: 0.95 }}>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="relative w-12 h-12 flex flex-col items-center justify-center group"
@@ -342,18 +336,26 @@ export default function Navbar() {
               >
                 {/* Animated hamburger */}
                 <motion.span
-                  animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  animate={
+                    isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }
+                  }
                   className="block w-6 h-0.5 bg-gradient-to-r from-cyan-300 to-purple-300 mb-1.5 transition-all duration-300"
                 />
                 <motion.span
-                  animate={isMenuOpen ? { opacity: 0, width: 0 } : { opacity: 1, width: 24 }}
+                  animate={
+                    isMenuOpen
+                      ? { opacity: 0, width: 0 }
+                      : { opacity: 1, width: 24 }
+                  }
                   className="block h-0.5 bg-gradient-to-r from-purple-300 to-pink-300 mb-1.5 transition-all duration-300"
                 />
                 <motion.span
-                  animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  animate={
+                    isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                  }
                   className="block w-6 h-0.5 bg-gradient-to-r from-pink-300 to-cyan-300 transition-all duration-300"
                 />
-                
+
                 {/* Button glow */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-cyan-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-300" />
                 <div className="absolute inset-0 rounded-xl border border-gray-700/50 group-hover:border-cyan-500/30 group-hover:border-purple-500/30 group-hover:border-pink-500/30 transition-all duration-300" />
@@ -375,7 +377,7 @@ export default function Navbar() {
               <div className="mt-4 py-6 bg-gradient-to-b from-gray-900/95 via-gray-900/98 to-gray-900 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-800/50 mx-4">
                 {/* Mobile menu gradient accent */}
                 <div className="absolute top-0 left-4 right-4 h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full" />
-                
+
                 <div className="flex flex-col space-y-2 px-4">
                   {navLinks.map((link, index) => (
                     <motion.div
@@ -474,40 +476,17 @@ export default function Navbar() {
                           stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
                         </motion.svg>
                       </div>
                     </Link>
                   </motion.div>
 
-                  {/* Mobile Dark Mode Toggle */}
-                  <motion.div
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: (navLinks.length + 2) * 0.1 }}
-                    className="flex justify-center pt-4"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={toggleDarkMode}
-                      className="relative p-3 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50"
-                      aria-label="Toggle dark mode"
-                    >
-                      <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                          key={darkMode ? 'dark-mobile' : 'light-mobile'}
-                          initial={{ y: -20, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: 20, opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className={darkMode ? "text-yellow-300" : "text-indigo-300"}
-                        >
-                          {darkMode ? <RiSunLine size={24} /> : <RiMoonLine size={24} />}
-                        </motion.div>
-                      </AnimatePresence>
-                    </motion.button>
-                  </motion.div>
                 </div>
               </div>
             </motion.div>

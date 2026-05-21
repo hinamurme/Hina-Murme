@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { 
-  FaReact, FaNodeJs, FaGitAlt} from "react-icons/fa";
+  FaReact, FaNodeJs, FaGitAlt,FaServer} from "react-icons/fa";
 import { SiMui, SiJsonwebtokens, SiPostman } from "react-icons/si";
 import { FiLink } from "react-icons/fi";
 import { 
   SiTailwindcss, 
   SiMongodb, SiRedux, SiJavascript,
-  SiExpress,SiMysql
+  SiExpress,SiMysql,SiPython, SiReact,  // For React Native (using React icon)
+  SiHostinger
 } from "react-icons/si";
 
 export default function Skills() {
@@ -30,7 +31,7 @@ const skillsData = [
   // Frontend Skills
   { 
     name: "React.js", 
-    icon: <FaReact className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <FaReact className="w-5 h-5" />, 
     level: 85, 
     color: "text-cyan-400", 
     bgColor: "bg-cyan-900/30", 
@@ -39,9 +40,20 @@ const skillsData = [
     category: "frontend",
     description: "Building responsive UI with hooks, components, and state management"
   },
+    { 
+    name: "React Native", 
+    icon: <FaReact className="w-5 h-5" />, 
+    level: 75, 
+    color: "text-cyan-400", 
+    bgColor: "bg-cyan-900/20", 
+    borderColor: "border-cyan-500/30",
+    gradient: "from-cyan-500 to-blue-500",
+    category: "frontend",
+    description: "Cross-platform mobile app development for iOS and Android"
+  },
   { 
     name: "JavaScript (ES6+)", 
-    icon: <SiJavascript className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiJavascript className="w-5 h-5" />, 
     level: 88, 
     color: "text-yellow-400", 
     bgColor: "bg-yellow-900/20", 
@@ -52,7 +64,7 @@ const skillsData = [
   },
   { 
     name: "Redux Toolkit", 
-    icon: <SiRedux className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiRedux className="w-5 h-5" />, 
     level: 80, 
     color: "text-purple-400", 
     bgColor: "bg-purple-900/20", 
@@ -63,7 +75,7 @@ const skillsData = [
   },
   { 
     name: "Tailwind CSS", 
-    icon: <SiTailwindcss className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiTailwindcss className="w-5 h-5" />, 
     level: 85, 
     color: "text-teal-400", 
     bgColor: "bg-teal-900/20", 
@@ -74,7 +86,7 @@ const skillsData = [
   },
   { 
     name: "Material-UI (MUI)", 
-    icon: <SiMui className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiMui className="w-5 h-5" />, 
     level: 80, 
     color: "text-blue-400", 
     bgColor: "bg-blue-900/20", 
@@ -87,7 +99,7 @@ const skillsData = [
   // Backend Skills
   { 
     name: "Node.js", 
-    icon: <FaNodeJs className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <FaNodeJs className="w-5 h-5" />, 
     level: 85, 
     color: "text-green-400", 
     bgColor: "bg-green-900/20", 
@@ -98,7 +110,7 @@ const skillsData = [
   },
   { 
     name: "Express.js", 
-    icon: <SiExpress className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiExpress className="w-5 h-5" />, 
     level: 82, 
     color: "text-gray-400", 
     bgColor: "bg-gray-800/30", 
@@ -108,8 +120,19 @@ const skillsData = [
     description: "Middleware, routing, and backend architecture"
   },
   { 
+    name: "Python", 
+    icon: <SiPython className="w-5 h-5" />, 
+    level: 85, 
+    color: "text-yellow-400", 
+    bgColor: "bg-yellow-900/20", 
+    borderColor: "border-yellow-500/30",
+    gradient: "from-yellow-500 to-blue-500",
+    category: "backend",
+    description: "Backend development, scripting, and data processing"
+  },
+  { 
     name: "JWT Authentication", 
-    icon: <SiJsonwebtokens className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiJsonwebtokens className="w-5 h-5" />, 
     level: 80, 
     color: "text-pink-400", 
     bgColor: "bg-pink-900/20", 
@@ -120,7 +143,7 @@ const skillsData = [
   },
   { 
     name: "REST API", 
-    icon: <FiLink className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <FiLink className="w-5 h-5" />, 
     level: 85, 
     color: "text-cyan-400", 
     bgColor: "bg-cyan-900/20", 
@@ -133,7 +156,7 @@ const skillsData = [
   // Database Skills
   { 
     name: "MongoDB", 
-    icon: <SiMongodb className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiMongodb className="w-5 h-5" />, 
     level: 85, 
     color: "text-green-500", 
     bgColor: "bg-green-900/20", 
@@ -142,11 +165,22 @@ const skillsData = [
     category: "databases",
     description: "NoSQL database, CRUD operations, and schema design"
   },
+  { 
+    name: "MySQL", 
+    icon: <SiMysql className="w-5 h-5" />, 
+    level: 80, 
+    color: "text-blue-400", 
+    bgColor: "bg-blue-900/20", 
+    borderColor: "border-blue-500/30",
+    gradient: "from-blue-500 to-indigo-500",
+    category: "databases",
+    description: "Relational database design, SQL queries, joins, and data analysis"
+  },
 
   // Tools
   { 
     name: "Git & GitHub", 
-    icon: <FaGitAlt className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <FaGitAlt className="w-5 h-5" />, 
     level: 85, 
     color: "text-orange-500", 
     bgColor: "bg-orange-900/20", 
@@ -157,7 +191,7 @@ const skillsData = [
   },
   { 
     name: "Postman", 
-    icon: <SiPostman className="w-6 h-6 sm:w-8 sm:h-8" />, 
+    icon: <SiPostman className="w-5 h-5" />, 
     level: 80, 
     color: "text-orange-400", 
     bgColor: "bg-orange-900/20", 
@@ -166,28 +200,18 @@ const skillsData = [
     category: "tools",
     description: "API testing and debugging"
   },
-  { 
-    name: "MongoDB Compass", 
-    icon: <SiMongodb className="w-6 h-6 sm:w-8 sm:h-8" />, 
+   { 
+    name: "Hostinger", 
+    icon: <FaServer className="w-5 h-5" />, 
     level: 75, 
-    color: "text-green-400", 
-    bgColor: "bg-green-900/20", 
-    borderColor: "border-green-500/30",
-    gradient: "from-green-500 to-emerald-500",
+    color: "text-purple-400", 
+    bgColor: "bg-purple-900/20", 
+    borderColor: "border-purple-500/30",
+    gradient: "from-purple-500 to-pink-500",
     category: "tools",
-    description: "Database visualization and management"
+    description: "Web hosting, domain management, and server deployment"
   },
-  { 
-  name: "MySQL", 
-  icon: <SiMysql className="w-6 h-6 sm:w-8 sm:h-8" />, 
-  level: 80, 
-  color: "text-blue-400", 
-  bgColor: "bg-blue-900/20", 
-  borderColor: "border-blue-500/30",
-  gradient: "from-blue-500 to-indigo-500",
-  category: "databases",
-  description: "Relational database design, SQL queries, joins, and data analysis"
-},
+
 ];
 
   // Filter skills based on active category
@@ -197,24 +221,18 @@ const skillsData = [
 
   // Skill level animation
   const ProgressBar = ({ level, gradient }) => (
-    <div className="relative w-full h-1.5 sm:h-2 bg-gray-800 rounded-full overflow-hidden mt-2">
+    <div className="relative w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: `${level}%` }}
         transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
         className={`absolute inset-y-0 left-0 bg-gradient-to-r ${gradient} rounded-full`}
-      >
-        <motion.div
-          className="absolute inset-0 bg-white/20"
-          animate={{ x: ["-100%", "100%"] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
-      </motion.div>
+      />
     </div>
   );
 
   return (
-    <section id="skills" className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden">
+    <section id="skills" className="min-h-screen py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden">
       
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -229,18 +247,18 @@ const skillsData = [
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 mb-4 sm:mb-6">
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-xs sm:text-sm font-medium text-cyan-300">Technical Expertise</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 mb-3 sm:mb-4">
+            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
+            <span className="text-xs font-medium text-cyan-300">Technical Expertise</span>
           </div>
           
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
           >
             <span className="text-white">My </span>
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -252,7 +270,7 @@ const skillsData = [
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto px-4"
+            className="text-sm text-gray-400 max-w-2xl mx-auto px-4"
           >
             Technologies and tools I work with to create amazing digital experiences
           </motion.p>
@@ -263,7 +281,7 @@ const skillsData = [
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 px-2"
+          className="flex flex-wrap justify-center gap-2 mb-6 sm:mb-8 px-2"
         >
           {categories.map((category) => (
             <motion.button
@@ -271,7 +289,7 @@ const skillsData = [
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setActiveCategory(category.id)}
-              className={`relative px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm md:text-base font-medium transition-all duration-300 ${
+              className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
                 activeCategory === category.id
                   ? `text-white bg-gradient-to-r ${category.color}`
                   : "text-gray-400 bg-gray-900/50 border border-gray-800 hover:border-gray-700"
@@ -281,17 +299,17 @@ const skillsData = [
               {activeCategory === category.id && (
                 <motion.div
                   layoutId="activeCategory"
-                  className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r opacity-20"
+                  className="absolute inset-0 rounded-lg bg-gradient-to-r opacity-20"
                 />
               )}
             </motion.button>
           ))}
         </motion.div>
 
-        {/* Skills Grid */}
+        {/* Skills Grid - Classic Hover Design */}
         <motion.div
           layout
-          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-0"
+          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-2 sm:px-0"
         >
           {filteredSkills.map((skill, index) => (
             <motion.div
@@ -300,109 +318,73 @@ const skillsData = [
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ 
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
-              className={`relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border ${skill.borderColor} ${skill.bgColor} backdrop-blur-sm transition-all duration-300 group overflow-hidden`}
+              className="group relative p-4 rounded-xl bg-gray-900/40 backdrop-blur-sm border border-gray-700 hover:border-transparent transition-all duration-300 hover:shadow-xl cursor-pointer overflow-hidden"
             >
-              {/* Glow effect on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${skill.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+              {/* Classic hover gradient background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${skill.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
-              {/* Skill icon */}
-              <div className="relative z-10 flex items-center justify-between mb-3 sm:mb-4">
-                <div className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl ${skill.color} bg-gray-900/50`}>
-                  {skill.icon}
+              {/* Dark overlay for better text contrast on hover */}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Card content */}
+              <div className="relative z-10">
+                {/* Skill icon and percentage */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`p-2 rounded-xl bg-gray-800/80 group-hover:bg-white/10 transition-all duration-300 ${skill.color}`}>
+                    {skill.icon}
+                  </div>
+                  <motion.div
+                    animate={{ 
+                      scale: hoveredSkill === skill.name ? 1.1 : 1,
+                    }}
+                    className={`text-lg font-bold ${skill.color} group-hover:text-white transition-colors duration-300`}
+                  >
+                    {skill.level}%
+                  </motion.div>
                 </div>
+
+                {/* Skill name */}
+                <h3 className={`text-base font-semibold mb-2 ${skill.color} group-hover:text-white transition-colors duration-300`}>
+                  {skill.name}
+                </h3>
+
+                {/* Progress bar */}
+                <div className="relative w-full h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${skill.level}%` }}
+                    transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+                    className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skill.gradient} rounded-full group-hover:shadow-lg transition-all duration-300`}
+                  />
+                </div>
+
+                {/* Description - appears on hover */}
                 <motion.div
-                  className="text-lg sm:text-xl md:text-2xl font-bold"
+                  initial={{ opacity: 0, y: -10 }}
                   animate={{ 
-                    scale: hoveredSkill === skill.name ? 1.1 : 1,
-                    color: hoveredSkill === skill.name ? skill.color : "#ffffff"
+                    opacity: hoveredSkill === skill.name ? 1 : 0,
+                    y: hoveredSkill === skill.name ? 0 : -10
                   }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
                 >
-                  {skill.level}%
+                  <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent my-3" />
+                  <p className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors duration-300">
+                    {skill.description}
+                  </p>
                 </motion.div>
               </div>
 
-              {/* Skill name */}
-              <h3 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 ${skill.color} relative z-10`}>
-                {skill.name}
-              </h3>
-
-              {/* Progress bar */}
-              <div className="relative z-10">
-                <ProgressBar level={skill.level} gradient={skill.gradient} />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>0</span>
-                  <span>100</span>
-                </div>
-              </div>
-
-              {/* Description (shown on hover) */}
+              {/* Classic hover scale effect */}
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ 
-                  opacity: hoveredSkill === skill.name ? 1 : 0,
-                  height: hoveredSkill === skill.name ? "auto" : 0
-                }}
+                className="absolute inset-0 rounded-xl border-2 border-transparent"
+                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
-                className="relative z-10 overflow-hidden"
-              >
-                <p className="text-xs sm:text-sm text-gray-400 mt-3 sm:mt-4">
-                  {skill.description}
-                </p>
-              </motion.div>
-
-              {/* Animated border */}
-              <motion.div
-                className="absolute inset-0 rounded-xl sm:rounded-2xl border-2"
-                style={{
-                  borderImageSource: `linear-gradient(to right, var(--tw-gradient-stops))`,
-                  borderImageSlice: 1,
-                }}
-                animate={{
-                  opacity: hoveredSkill === skill.name ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
               />
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Legend & Stats */}
-    
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="text-center mt-12 sm:mt-16 px-4"
-        >
-          <p className="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto">
-            Always learning and expanding my skill set to stay at the forefront of web development
-          </p>
-          <motion.a
-            href="#projects"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-cyan-600 via-purple-600 to-pink-600 text-sm sm:text-base text-white font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            <span>View My Projects</span>
-            <motion.svg
-              className="h-4 w-4 sm:h-5 sm:w-5"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </motion.svg>
-          </motion.a>
         </motion.div>
       </div>
     </section>
