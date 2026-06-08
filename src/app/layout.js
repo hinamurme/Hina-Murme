@@ -9,6 +9,10 @@ export const metadata = {
   description:
     "Hina Murme is a MERN Stack Developer, Python Developer, and LLM Developer specializing in React.js, Next.js, Node.js, Express.js, MongoDB, Python, Generative AI, and Large Language Models.",
 
+    icons: {
+    icon: "/logo.png",
+  },
+
   verification: {
     google: "1K4BMrgpcvAw97_RZciXI-1LKNfrDgYOuzVIbjYVQo8",
   },
