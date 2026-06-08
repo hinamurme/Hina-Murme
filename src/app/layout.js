@@ -4,30 +4,40 @@ import Chatbot from "@/components/Chatbot";
 import "./globals.css";
 
 export const metadata = {
-  title: "Hina Murme | Portfolio",
-  description: "Python Backend Developer, Data Analyst & Frontend Developer",
+  title: "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
 
-  // Google Search Console Verification
+  description:
+    "Hina Murme is a MERN Stack Developer, Python Developer, and LLM Developer specializing in React.js, Next.js, Node.js, Express.js, MongoDB, Python, Generative AI, and Large Language Models.",
+
   verification: {
     google: "1K4BMrgpcvAw97_RZciXI-1LKNfrDgYOuzVIbjYVQo8",
   },
 
-  // SEO Metadata
   keywords: [
     "Hina Murme",
-    "Portfolio",
+    "MERN Stack Developer",
     "Python Developer",
-    "Backend Developer",
-    "Data Analyst",
-    "Frontend Developer",
+    "LLM Developer",
+    "Generative AI",
     "React Developer",
     "Next.js Developer",
-    "Web Developer",
+    "Node.js Developer",
+    "Express.js Developer",
+    "MongoDB Developer",
+    "JavaScript Developer",
+    "Full Stack Developer",
+    "OpenAI",
+    "LangChain",
+    "RAG",
+    "Vector Database",
+    "AI Developer",
+    "Portfolio",
   ],
 
   authors: [
     {
       name: "Hina Murme",
+      url: "https://www.linkedin.com/in/hina-murme/",
     },
   ],
 
@@ -36,13 +46,21 @@ export const metadata = {
 
   metadataBase: new URL("https://hina-murme.vercel.app"),
 
-  // Open Graph
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
-    title: "Hina Murme | Portfolio",
+    title:
+      "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
+
     description:
-      "Portfolio of Python Backend Developer, Data Analyst & Frontend Developer",
+      "Portfolio of MERN Stack Developer, Python Developer and LLM Developer specializing in modern web applications and Generative AI.",
+
     url: "https://hina-murme.vercel.app",
-    siteName: "Hina Portfolio",
+
+    siteName: "Hina Murme Portfolio",
+
     images: [
       {
         url: "/pic.png",
@@ -51,20 +69,23 @@ export const metadata = {
         alt: "Hina Murme Portfolio",
       },
     ],
+
     locale: "en_US",
     type: "website",
   },
 
-  // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Hina Murme | Portfolio",
+
+    title:
+      "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
+
     description:
-      "Portfolio of Python Backend Developer, Data Analyst & Frontend Developer",
+      "Portfolio of MERN Stack Developer, Python Developer and LLM Developer.",
+
     images: ["/pic.png"],
   },
 
-  // Icons
   icons: {
     icon: "/H-logo.png",
     shortcut: "/H-logo.png",
@@ -74,6 +95,7 @@ export const metadata = {
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -82,14 +104,44 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+
+  category: "Technology",
 };
 
 export default function RootLayout({ children }) {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Hina Murme",
+    url: "https://hina-murme.vercel.app",
+    image: "https://hina-murme.vercel.app/pic.png",
+
+    jobTitle:
+      "MERN Stack Developer | Python Developer | LLM Developer",
+
+    description:
+      "MERN Stack Developer, Python Developer and LLM Developer specializing in React.js, Next.js, Node.js, MongoDB, Python and Generative AI.",
+
+    sameAs: [
+      "https://www.linkedin.com/in/hina-murme/",
+      "https://github.com/hinamurme",
+    ],
+  };
+
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema),
+          }}
+        />
+
         <Navbar />
+
         {children}
+
         {/* <Chatbot /> */}
       </body>
     </html>
