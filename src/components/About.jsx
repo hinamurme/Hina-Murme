@@ -29,7 +29,6 @@ export default function About() {
     { id: "education", label: "Education", icon: <FiAward /> },
   ];
 
-  // Personal Information from Resume
   const personalInfo = {
     fullName: "Hina Murme",
     firstName: "Hina",
@@ -42,15 +41,12 @@ export default function About() {
     github: "https://github.com/hina-murme",
   };
 
-  // Languages from Resume
   const languages = [
     { name: "Hindi", level: "Fluent", color: "from-orange-400 to-red-500" },
     { name: "English", level: "Professional", color: "from-blue-400 to-cyan-500" },
     { name: "Marathi", level: "Fluent", color: "from-green-400 to-emerald-500" },
   ];
 
-
-  // Education from Resume
   const education = [
     {
       degree: "Bachelor of Science in Computer Science",
@@ -63,8 +59,6 @@ export default function About() {
     },
   ];
 
-
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -101,7 +95,7 @@ export default function About() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header - Made smaller */}
+        {/* Section Header */}
         <motion.div
           className="text-center mb-8 sm:mb-10 md:mb-12"
           initial={{ opacity: 0, y: -20 }}
@@ -165,21 +159,21 @@ export default function About() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-gray-300">
-                    <FiUser className="text-cyan-400 text-sm" />
+                    <FiUser className="text-cyan-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Full Name</p>
                       <p className="text-sm font-medium">{personalInfo.fullName}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-gray-300">
-                    <FiPhone className="text-purple-400 text-sm" />
+                    <FiPhone className="text-purple-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Mobile Number</p>
                       <p className="text-sm font-medium">{personalInfo.mobile}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-gray-300">
-                    <FiMapPin className="text-pink-400 text-sm" />
+                    <FiMapPin className="text-pink-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Address</p>
                       <p className="text-sm font-medium">{personalInfo.address}</p>
@@ -188,14 +182,14 @@ export default function About() {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-gray-300">
-                    <FiMail className="text-cyan-400 text-sm" />
+                    <FiMail className="text-cyan-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Email</p>
                       <p className="text-sm font-medium break-all">{personalInfo.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-gray-300">
-                    <FiGlobe className="text-purple-400 text-sm" />
+                    <FiGlobe className="text-purple-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Nationality</p>
                       <p className="text-sm font-medium">{personalInfo.nationality}</p>
@@ -254,8 +248,6 @@ export default function About() {
                 </div>
               </div>
             </motion.div>
-
-     
           </motion.div>
 
           {/* Right Column */}
@@ -301,8 +293,6 @@ export default function About() {
               ))}
             </motion.div>
 
-  
-
             {/* What I Bring */}
             <div className="p-5 rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50">
               <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
@@ -347,9 +337,6 @@ export default function About() {
             </div>
           </motion.div>
         </div>
-
-    
-
       </div>
     </section>
   );
