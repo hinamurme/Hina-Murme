@@ -87,9 +87,9 @@ export const metadata = {
   },
 
   icons: {
-    icon: "/H-logo.png",
-    shortcut: "/H-logo.png",
-    apple: "/H-logo.png",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
 
   robots: {
