@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #030914; }
+
+.hero-waves {
+  background-image: linear-gradient(160deg, transparent 35%, rgba(44, 94, 255, .34) 49%, transparent 50%), linear-gradient(20deg, transparent 39%, rgba(182, 58, 246, .34) 50%, transparent 51%);
+  background-size: 240px 110px, 330px 130px;
+  mask-image: linear-gradient(to bottom, transparent, black 45%);
+}

@@ -9,7 +9,7 @@ import {
   SiMui, SiJsonwebtokens, SiPostman, SiFirebase, SiNextdotjs, SiOpenai, 
   SiLangchain, SiGoogle, SiGit, SiGithubactions, SiNetlify
 } from "react-icons/si";
-import { FiLink } from "react-icons/fi";
+import { FiCode, FiLink, FiStar } from "react-icons/fi";
 import { 
   SiTailwindcss, SiMongodb, SiJavascript, SiExpress, SiMysql, 
   SiVercel, SiBootstrap, SiHtml5, SiCss3, SiMongoose
@@ -20,31 +20,32 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 function CircleSkill({ skill, index, isVisible }) {
   const dash = (skill.level / 100) * CIRCUMFERENCE;
+  const proficiency = skill.level >= 85 ? "Expert" : "Advanced";
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.6 }}
       animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
       transition={{ duration: 0.4, delay: index * 0.04 }}
-      className="flex flex-col items-center gap-1.5 group cursor-pointer"
+      className="group flex min-w-0 w-full cursor-pointer flex-col items-center rounded-2xl border border-slate-700/75 bg-[#081322]/85 px-2 py-4 shadow-lg shadow-black/20 transition-colors duration-300 hover:border-cyan-400/60 sm:px-5 sm:py-6"
       title={skill.description}
     >
       {/* Circle */}
-      <div className="relative w-20 h-20">
-        <svg className="w-20 h-20 -rotate-90" viewBox="0 0 72 72">
+      <div className="relative h-20 w-20 sm:h-36 sm:w-36">
+        <svg className="h-full w-full -rotate-90 drop-shadow-[0_0_8px_rgba(139,92,246,0.55)]" viewBox="0 0 72 72">
           {/* Track */}
           <circle
             cx="36" cy="36" r={RADIUS}
             fill="none"
             stroke="rgba(255,255,255,0.08)"
-            strokeWidth="4"
+            strokeWidth="3.5"
           />
           {/* Progress */}
           <motion.circle
             cx="36" cy="36" r={RADIUS}
             fill="none"
-            stroke="url(#grad)"
-            strokeWidth="4"
+            stroke={`url(#skill-grad-${index})`}
+            strokeWidth="3.5"
             strokeLinecap="round"
             strokeDasharray={CIRCUMFERENCE}
             initial={{ strokeDashoffset: CIRCUMFERENCE }}
@@ -52,7 +53,7 @@ function CircleSkill({ skill, index, isVisible }) {
             transition={{ duration: 1.2, delay: index * 0.04 + 0.3, ease: "easeOut" }}
           />
           <defs>
-            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id={`skill-grad-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#22d3ee" />
               <stop offset="100%" stopColor="#a855f7" />
             </linearGradient>
@@ -60,19 +61,20 @@ function CircleSkill({ skill, index, isVisible }) {
         </svg>
 
         {/* Icon inside circle */}
-        <div className={`absolute inset-0 flex items-center justify-center ${skill.color} group-hover:scale-110 transition-transform duration-200`}>
-          <span className="text-xl">{skill.icon}</span>
+        <div className={`absolute inset-0 flex items-center justify-center ${skill.color} transition-transform duration-200 group-hover:scale-110`}>
+          <span className="text-2xl sm:text-4xl">{skill.icon}</span>
         </div>
 
-        {/* Percent badge on hover */}
-        <div className="absolute -top-1 -right-1 bg-gray-900 border border-cyan-500/50 text-cyan-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-violet-400/35 bg-[#0a1424] px-2 py-0.5 text-[10px] font-semibold text-white shadow-lg shadow-black/30 sm:px-3 sm:py-1 sm:text-sm">
           {skill.level}%
         </div>
       </div>
 
-      {/* Name */}
-      <span className="text-[11px] text-gray-400 group-hover:text-gray-200 transition-colors duration-200 text-center leading-tight max-w-[76px]">
+      <span className="mt-3 w-full break-words text-center text-xs font-semibold leading-tight text-white transition-colors duration-200 group-hover:text-cyan-200 sm:text-base">
         {skill.name}
+      </span>
+      <span className={`mt-1 flex items-center gap-1 text-[10px] sm:text-sm ${proficiency === "Expert" ? "text-fuchsia-400" : "text-cyan-400"}`}>
+        <i className="h-1.5 w-1.5 rounded-full bg-current" /> {proficiency}
       </span>
     </motion.div>
   );
@@ -139,7 +141,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden"
+      className="relative overflow-hidden bg-[#040c18] px-1 py-1 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
     >
       {/* Background glows */}
       <div className="absolute inset-0 pointer-events-none">
@@ -147,28 +149,31 @@ export default function Skills() {
         <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/8 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div className="relative z-10 mx-auto max-w-6xl rounded-[2rem] border border-slate-700/70 bg-gradient-to-br from-slate-950/60 via-[#071323]/50 to-violet-950/20 px-4 py-9 sm:px-8 sm:py-11">
 
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          className="mb-8 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 mb-3">
-            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-cyan-300">Technical Expertise</span>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/70 bg-slate-950/50 px-5 py-2 text-cyan-300">
+            <FiCode className="text-lg" />
+            <span className="text-base font-medium">Technical Expertise</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+          <h2 className="font-serif text-4xl font-bold sm:text-5xl md:text-6xl">
             <span className="text-white">My </span>
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Skills
             </span>
           </h2>
-          <p className="text-sm text-gray-400 mt-2">
-            Full-stack development · AI integration · SEO optimization
-          </p>
+          <div className="mx-auto mt-5 flex max-w-xs items-center gap-3 text-blue-400">
+            <span className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500" />
+            <FiStar className="shrink-0" />
+            <span className="h-px flex-1 bg-gradient-to-l from-transparent to-violet-500" />
+          </div>
+
         </motion.div>
 
         {/* Category Filter */}
@@ -176,16 +181,16 @@ export default function Skills() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-1.5 mb-8"
+          className="mb-8 flex flex-wrap justify-center gap-2 sm:gap-3"
         >
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+              className={`rounded-full border px-5 py-2 text-sm font-medium transition-all duration-200 ${
                 activeCategory === cat.id
-                  ? `bg-gradient-to-r ${cat.color} text-white shadow-lg`
-                  : "text-gray-500 bg-gray-900/60 border border-gray-800 hover:text-gray-300 hover:border-gray-700"
+                  ? `border-transparent bg-gradient-to-r ${cat.color} text-white shadow-lg shadow-cyan-950/50`
+                  : "border-slate-700 bg-slate-950/45 text-slate-300 hover:border-slate-500 hover:text-white"
               }`}
             >
               {cat.label}
@@ -196,7 +201,7 @@ export default function Skills() {
         {/* Skills Grid — circles */}
         <motion.div
           layout
-          className="grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-9 gap-x-4 gap-y-6 justify-items-center"
+          className="grid min-w-0 grid-cols-3 gap-3 sm:gap-5 lg:grid-cols-4 lg:gap-6"
         >
           {filtered.map((skill, i) => (
             <CircleSkill
@@ -213,9 +218,9 @@ export default function Skills() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="text-center text-xs text-gray-600 mt-6"
+          className="mt-7 text-center text-xs text-slate-500"
         >
-          {filtered.length} skill{filtered.length !== 1 ? "s" : ""} · hover to see proficiency
+          {filtered.length} skill{filtered.length !== 1 ? "s" : ""}
         </motion.p>
       </div>
     </section>

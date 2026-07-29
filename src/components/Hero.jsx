@@ -12,7 +12,7 @@ const roles = [
   "REST API Specialist",
   "Authentication System Developer",
   "Responsive UI Builder",
-  "MongoDB Database Developer"
+  "MongoDB Database Developer",
 ];
 
 const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
@@ -41,7 +41,7 @@ export default function Hero() {
   // Initialize floating particles with connections
   useEffect(() => {
     if (!mounted) return;
-    
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -136,7 +136,7 @@ export default function Hero() {
         particles.push(new Particle());
       }
     };
-    
+
     createParticles();
 
     // Draw connections between particles
@@ -213,7 +213,7 @@ export default function Hero() {
   // Mouse position for interactive effects
   useEffect(() => {
     if (!mounted) return;
-    
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -229,9 +229,7 @@ export default function Hero() {
         className="flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-black py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       >
         <div className="relative z-10 w-full max-w-7xl mx-auto">
-          <div className="text-center text-gray-400">
-            Loading...
-          </div>
+          <div className="text-center text-gray-400">Loading...</div>
         </div>
       </section>
     );
@@ -241,7 +239,12 @@ export default function Hero() {
     <>
       <section
         id="home"
-        className="flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-black py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+        className="relative flex  items-center justify-center
+  bg-[#030914]
+  pt-20 sm:pt-0 lg:pt-20
+  pb-0
+  px-4 sm:px-6 lg:px-8
+  overflow-hidden"
       >
         {/* Animated gradient background */}
         <div className="absolute inset-0 overflow-hidden">
@@ -280,7 +283,10 @@ export default function Hero() {
         </div>
 
         {/* Interactive Canvas Particles */}
-        <canvas ref={canvasRef} className="absolute inset-0 opacity-20 sm:opacity-30" />
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 opacity-20 sm:opacity-30"
+        />
 
         {/* Mouse interaction glow - hidden on mobile */}
         <motion.div
@@ -294,15 +300,19 @@ export default function Hero() {
           <div className="w-96 h-96 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
         </motion.div>
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-10  lg:gap-16 items-center">
             {/* LEFT - Profile Image */}
-            <div className="flex justify-center lg:justify-start">
+            <div className="hidden lg:flex lg:order-1 justify-start">
               <ProfileImage mounted={mounted} />
             </div>
 
             {/* RIGHT - Content */}
-            <div className="space-y-5">
+            <div className="order-1 lg:order-2 space-y-5 text-center lg:text-left">
+              <div className="flex justify-center pt-1 lg:hidden">
+                <ProfileImage mounted={mounted} />
+              </div>
+
               {/* Greeting with glowing text */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -320,7 +330,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
+                className="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-tight"
               >
                 <span className="bg-gradient-to-r from-white via-cyan-100 to-purple-200 bg-clip-text text-transparent">
                   Hina Murme
@@ -346,59 +356,114 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
-                <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                  Passionate MERN Stack Developer with hands-on experience in building
-                  <span className="text-cyan-300 font-medium"> full-stack applications</span>,
-                  designing <span className="text-purple-300 font-medium">RESTful APIs</span>,
-                  and implementing secure <span className="text-pink-300 font-medium">JWT authentication</span>.
-                  I craft responsive, user-centric web solutions using React, Node.js, and MongoDB.
+                <p className="text-base sm:text-lg text-slate-300 leading-8 max-w-2xl mx-auto lg:mx-0">
+                  Passionate MERN Stack Developer with hands-on experience in
+                  building
+                  <span className="text-cyan-300 font-medium">
+                    {" "}
+                    full-stack applications
+                  </span>
+                  , designing{" "}
+                  <span className="text-purple-300 font-medium">
+                    RESTful APIs
+                  </span>
+                  , and implementing secure{" "}
+                  <span className="text-pink-300 font-medium">
+                    JWT authentication
+                  </span>
+                  . I craft responsive, user-centric web solutions using React,
+                  Node.js, and MongoDB.
                 </p>
               </motion.div>
-
-    
 
               {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 pt-2"
+                className="flex flex-row gap-3 pt-2 justify-center lg:justify-start w-full"
               >
                 {/* AI Assistant Button */}
                 <motion.button
                   onClick={() => setIsChatOpen(true)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 backdrop-blur-sm text-white font-semibold overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+                  className="group relative flex-1 min-w-0 px-3 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 backdrop-blur-sm text-white text-xs sm:text-base font-semibold overflow-hidden shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                   <div className="relative flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                      />
                     </svg>
-                    <span>🤖 AI Assistant</span>
+
+                    <span className="truncate">🤖 AI Assistant</span>
                   </div>
                 </motion.button>
 
                 {/* Download Resume Button */}
                 <motion.a
-                  href="/hina-murme.pdf"
+                  href="/HinaMurme_Resume1.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+                  className="group relative flex-1 min-w-0 px-3 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white text-xs sm:text-base font-semibold overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 text-center"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute top-0 left-0 w-full h-1 bg-white/30 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="absolute top-0 left-0 w-full h-1 bg-white/30 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
                   <div className="relative flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      />
                     </svg>
-                    <span>Download Resume</span>
+
+                    <span className="truncate">Download Resume</span>
                   </div>
                 </motion.a>
               </motion.div>
+
+              <div className="grid grid-cols-3 gap-2 pt-2  lg:hidden text-center text-[10px] text-slate-300">
+                <div>
+                  <span className="mx-auto mb-1 flex h-8 w-8 items-center justify-center rounded-lg border border-purple-400/30 text-sm text-purple-300">
+                    &lt;/&gt;
+                  </span>
+                  Clean Code
+                </div>
+                <div>
+                  <span className="mx-auto mb-1 flex h-8 w-8 items-center justify-center rounded-lg border border-amber-300/30 text-sm text-amber-300">
+                    ⚡
+                  </span>
+                  Performance
+                </div>
+                <div>
+                  <span className="mx-auto mb-1 flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400/30 text-sm text-cyan-300">
+                    ▯
+                  </span>
+                  Responsive
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -421,10 +486,7 @@ function ProfileImage({ mounted }) {
       transition={{ duration: 0.8, type: "spring" }}
       className="relative"
     >
-
- 
-
-      <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
+      <div className="relative w-36 h-36 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72">
         {/* Floating gradient orbs behind image */}
         <motion.div
           className="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full blur-xl opacity-40"
@@ -434,11 +496,16 @@ function ProfileImage({ mounted }) {
         <motion.div
           className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-40"
           animate={{ y: [0, 15, 0], x: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
         />
 
         {/* Main Profile Circle */}
-        <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/20 bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl mt-6">
+        <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-amber-300/70 bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl ">
           <motion.div
             className="relative w-full h-full"
             animate={{ scale: [1, 1.02, 1] }}
@@ -486,7 +553,7 @@ function Chatbot({ onClose }) {
       const response = await fetch(GROQ_API_URL, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${GROQ_API_KEY}`,
+          Authorization: `Bearer ${GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -499,7 +566,7 @@ function Chatbot({ onClose }) {
 About Hina:
 - Name: Hina Murme
 - Role: MERN Stack Developer
-- Experience: 6 months internship
+- Experience: 1 Year 
 - Email: murmehina45@gmail.com
 - Phone: +91 9284042371
 - Location: India
@@ -515,12 +582,12 @@ Education: B.Sc Computer Science (2021-2024) from Dr. Babasaheb Ambedkar Marathw
 
 Achievements: Built 10+ full-stack projects, Completed internship with distinction
 
-Keep responses friendly, concise (under 3 sentences), and professional. Only answer based on this information.`
+Keep responses friendly, concise (under 3 sentences), and professional. Only answer based on this information.`,
             },
             {
               role: "user",
-              content: input
-            }
+              content: input,
+            },
           ],
           temperature: 0.7,
           max_tokens: 150,
@@ -532,7 +599,9 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
       }
 
       const data = await response.json();
-      const botReply = data.choices[0]?.message?.content || "Sorry, I couldn't process that request.";
+      const botReply =
+        data.choices[0]?.message?.content ||
+        "Sorry, I couldn't process that request.";
 
       const botMsg = {
         sender: "bot",
@@ -565,7 +634,7 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         onClick={onClose}
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
       />
-      
+
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -577,18 +646,40 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         <div className="bg-gradient-to-r from-cyan-500 to-purple-500 p-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            <svg
+              className="w-5 h-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
             </svg>
             <h3 className="font-semibold text-white">AI Assistant</h3>
-            <span className="text-xs bg-green-500/20 px-2 py-0.5 rounded-full text-green-300">Live</span>
+            <span className="text-xs bg-green-500/20 px-2 py-0.5 rounded-full text-green-300">
+              Live
+            </span>
           </div>
           <button
             onClick={onClose}
             className="text-white hover:text-gray-200 transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -601,14 +692,22 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
               <p className="font-medium">Hi! I'm Hina's AI Assistant</p>
               <p className="text-xs text-gray-500">Powered by GROQ Llama 3.1</p>
               <div className="flex flex-wrap gap-2 justify-center mt-4">
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">Skills</span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-purple-300">Projects</span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-pink-300">Experience</span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">Contact</span>
+                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">
+                  Skills
+                </span>
+                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-purple-300">
+                  Projects
+                </span>
+                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-pink-300">
+                  Experience
+                </span>
+                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">
+                  Contact
+                </span>
               </div>
             </div>
           )}
-          
+
           {messages.map((msg, i) => (
             <div
               key={i}
@@ -669,4 +768,24 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
       </motion.div>
     </>
   );
+} /*
+              placeholder="Ask me anything about Hina..."
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            />
+            <button
+              onClick={sendMessage}
+              disabled={loading}
+              className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 rounded-xl text-sm font-semibold hover:shadow-lg transition-all disabled:opacity-50"
+            >
+              Send
+            </button>
+          </div>
+          <p className="text-[10px] text-gray-500 text-center mt-2">
+            🚀 Powered by GROQ Llama 3.1
+          </p>
+        </div>
+      </motion.div>
+    </>
+  );
 }
+*/
