@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from "next/link";
 import Image from "next/image";
@@ -14,6 +14,149 @@ const roles = [
   "Responsive UI Builder",
   "MongoDB Database Developer",
 ];
+
+// Resume data for AI Assistant
+const RESUME_DATA = {
+  name: "Hina Murme",
+  role: "Project Engineer (Full Stack Developer)",
+  experience: "1+ year",
+  email: "murmehina45@gmail.com",
+  phone: "+91-9284042371",
+  location: "Hyderabad, India",
+  skills: [
+    "JavaScript (ES6+)",
+    "Python",
+    "React.js",
+    "Next.js",
+    "HTML5",
+    "CSS3",
+    "Tailwind CSS",
+    "Bootstrap",
+    "Ant Design",
+    "Material UI (MUI)",
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "MongoDB",
+    "Mongoose",
+    "MySQL",
+    "Firebase (Firestore, Realtime Database)",
+    "JWT Authentication",
+    "Firebase Authentication",
+    "OTP Verification",
+    "RBAC",
+    "Razorpay",
+    "PayU",
+    "HDFC SmartGateway",
+    "OpenAI API",
+    "AI Chatbot",
+    "Git",
+    "GitHub",
+    "Postman",
+    "VS Code",
+    "MongoDB Compass",
+    "Redis",
+    "PM2",
+    "Nginx",
+    "AWS (EC2, S3)",
+    "Vercel",
+    "Firebase Hosting",
+    "Hostinger",
+  ],
+  experience_details: [
+    {
+      title: "Project Engineer (Full Stack Developer)",
+      company: "Dexterous Technology",
+      location: "Hyderabad",
+      period: "Aug 2025 – Present",
+      responsibilities: [
+        "Developed scalable full-stack web applications using MERN Stack and Next.js.",
+        "Built responsive user interfaces with React.js, Tailwind CSS, Bootstrap, Ant Design, and Material UI.",
+        "Designed secure REST APIs, authentication (JWT/Firebase), and role-based access control (RBAC).",
+        "Developed and maintained EW Shopping, Grocery Website, Food Delivery Platform, Employee Task Management System, and Admin Panels.",
+        "Integrated Shiprocket, Razorpay, PayU, Firebase, Google Maps API, and other third-party services.",
+        "Optimized application performance using MongoDB indexing, Redis caching, PM2, and Nginx.",
+        "Managed deployment, testing, and version control using AWS, Git, GitHub, Postman, Vercel, and Hostinger.",
+        "Collaborated with cross-functional teams to deliver scalable, secure, and production-ready applications.",
+      ],
+    },
+    {
+      title: "Software Developer Intern",
+      company: "Naresh i Technologies",
+      location: "Hyderabad",
+      period: "Feb 2025 – Jul 2025",
+      responsibilities: [
+        "Built full-stack web applications using Python, MySQL, HTML, CSS, JavaScript, Basic AI, and MongoDB.",
+        "Developed REST APIs, CRUD operations, authentication, and responsive user interfaces.",
+        "Worked with Git, GitHub, and Postman for development, testing, and debugging.",
+        "Gained hands-on experience in developing and deploying real-world web applications.",
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: "EW Shopping – AI-Powered Multi-Vendor Marketplace",
+      tech: "Next.js, React.js, Node.js, Express.js, MongoDB, Redis",
+      details: [
+        "Developed Customer Website, Seller Panel, and Admin Panel.",
+        "Built product, category, order, coupon, wallet, and inventory management.",
+        "Integrated Shiprocket, Razorpay, Firebase OTP, and AI-powered product search.",
+        "Optimized application performance using Redis, PM2, and Nginx.",
+      ],
+    },
+    {
+      name: "Grocery E-Commerce Website",
+      tech: "React.js, Node.js, Express.js, MongoDB",
+      details: [
+        "Developed a complete online grocery shopping platform.",
+        "Implemented product catalog, cart, wishlist, checkout, and order management.",
+        "Built secure user authentication and responsive UI.",
+      ],
+    },
+    {
+      name: "Food Delivery Platform",
+      tech: "React.js, Node.js, MongoDB, Socket.IO",
+      details: [
+        "Developed customer website and admin dashboard.",
+        "Implemented restaurant, menu, order, delivery, and payment management.",
+        "Added real-time order tracking using Socket.IO.",
+      ],
+    },
+    {
+      name: "Employee Task Management System",
+      tech: "React.js, Node.js, Express.js, MongoDB",
+      details: [
+        "Built task assignment and employee management system.",
+        "Developed Admin Panel with task tracking, reports, and role-based access control.",
+      ],
+    },
+    {
+      name: "Admin Management Panel",
+      tech: "React.js, Node.js, Express.js, MongoDB",
+      details: [
+        "Developed centralized dashboard for managing users, products, orders, reports, and analytics.",
+        "Implemented RBAC, authentication, and responsive user interface.",
+      ],
+    },
+    {
+      name: "Additional Projects",
+      tech: "Next.js, React.js, Tailwind CSS, OpenAI API, Firebase",
+      details: [
+        "Personal Portfolio Website - Next.js, React.js, Tailwind CSS, SEO, Vercel",
+        "AI Website Assistant (Chatbot) - OpenAI API, React.js, Node.js",
+        "Realtime Chat Application - Firebase Firestore, Firebase Authentication",
+      ],
+    },
+  ],
+  education: {
+    degree: "Bachelor of Science (B.Sc.) in Computer Science",
+    university: "Dr. Babasaheb Ambedkar Marathwada University, Aurangabad",
+    percentage: "65.60%",
+  },
+  portfolio: "https://hina-murme.vercel.app/",
+  github: "https://github.com/hinamurme",
+  linkedin: "https://www.linkedin.com/in/hina-murme/",
+};
 
 const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 const GROQ_API_URL = process.env.NEXT_PUBLIC_GROQ_API_URL;
@@ -530,7 +673,7 @@ function ProfileImage({ mounted }) {
   );
 }
 
-// AI Chatbot Component
+// AI Chatbot Component (amber/dark theme, with timestamps)
 function Chatbot({ onClose }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -542,10 +685,13 @@ function Chatbot({ onClose }) {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const formatTime = () =>
+    new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMsg = { sender: "user", text: input };
+    const userMsg = { sender: "user", text: input, time: formatTime() };
     setMessages((prev) => [...prev, userMsg]);
     setLoading(true);
 
@@ -561,28 +707,36 @@ function Chatbot({ onClose }) {
           messages: [
             {
               role: "system",
-              content: `You are Hina Murme's portfolio assistant. ONLY provide real information about Hina.
+              content: `You are Hina Murme's portfolio assistant. ONLY provide real information about Hina based on the resume data provided below. Keep responses friendly, concise (under 3 sentences), and professional. Only answer based on this information. If asked something not in the resume, politely say you only have information from the resume.
 
-About Hina:
-- Name: Hina Murme
-- Role: MERN Stack Developer
-- Experience: 1 Year 
-- Email: murmehina45@gmail.com
-- Phone: +91 9284042371
-- Location: India
+RESUME DATA:
+Name: ${RESUME_DATA.name}
+Role: ${RESUME_DATA.role}
+Experience: ${RESUME_DATA.experience}
+Email: ${RESUME_DATA.email}
+Phone: ${RESUME_DATA.phone}
+Location: ${RESUME_DATA.location}
 
-Skills: JavaScript, React.js, Node.js, Express.js, MongoDB, Tailwind CSS, REST APIs, JWT Authentication, Git, GitHub
+Skills: ${RESUME_DATA.skills.join(", ")}
+
+Experience:
+${RESUME_DATA.experience_details.map(exp => 
+  `- ${exp.title} at ${exp.company} (${exp.period})
+   Responsibilities: ${exp.responsibilities.join(" ")}`
+).join("\n")}
 
 Projects:
-1. E-Commerce Web App - Full-stack shopping platform with cart and payment integration
-2. Grocify - Grocery delivery app with real-time inventory
-3. Portfolio Website - Modern developer portfolio with AI chatbot
+${RESUME_DATA.projects.map(proj =>
+  `- ${proj.name}
+   Tech: ${proj.tech}
+   Details: ${proj.details.join(" ")}`
+).join("\n")}
 
-Education: B.Sc Computer Science (2021-2024) from Dr. Babasaheb Ambedkar Marathwada University
+Education: ${RESUME_DATA.education.degree} from ${RESUME_DATA.education.university}, Percentage: ${RESUME_DATA.education.percentage}
 
-Achievements: Built 10+ full-stack projects, Completed internship with distinction
-
-Keep responses friendly, concise (under 3 sentences), and professional. Only answer based on this information.`,
+Portfolio: ${RESUME_DATA.portfolio}
+GitHub: ${RESUME_DATA.github}
+LinkedIn: ${RESUME_DATA.linkedin}`,
             },
             {
               role: "user",
@@ -603,12 +757,10 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         data.choices[0]?.message?.content ||
         "Sorry, I couldn't process that request.";
 
-      const botMsg = {
-        sender: "bot",
-        text: botReply,
-      };
-
-      setMessages((prev) => [...prev, botMsg]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: botReply, time: formatTime() },
+      ]);
     } catch (error) {
       console.error("Chatbot Error:", error);
       setMessages((prev) => [
@@ -616,6 +768,7 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         {
           sender: "bot",
           text: "⚠️ Connection issue. Please check your API key or try again later.",
+          time: formatTime(),
         },
       ]);
     } finally {
@@ -640,33 +793,38 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", damping: 25 }}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100%-2rem)] sm:w-96 bg-gradient-to-br from-gray-900 to-gray-800 shadow-2xl rounded-2xl overflow-hidden z-50 border border-gray-700"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-[calc(100%-2rem)] sm:w-96 bg-[#0b1220] shadow-2xl rounded-2xl overflow-hidden z-50 border border-amber-500/20"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-cyan-500 to-purple-500 p-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></div>
-            <svg
-              className="w-5 h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-              />
-            </svg>
-            <h3 className="font-semibold text-white">AI Assistant</h3>
-            <span className="text-xs bg-green-500/20 px-2 py-0.5 rounded-full text-green-300">
-              Live
-            </span>
+        <div className="flex items-center justify-between p-4 border-b border-amber-500/20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full border-2 border-amber-400/60 bg-amber-400/10 flex items-center justify-center flex-shrink-0">
+              <svg
+                className="w-5 h-5 text-amber-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white text-base leading-tight">
+                AI Assistant
+              </h3>
+              <p className="text-xs text-slate-400 leading-tight">
+                Portfolio Assistant
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:text-gray-200 transition-colors"
+            className="text-slate-400 hover:text-white transition-colors flex-shrink-0"
           >
             <svg
               className="w-5 h-5"
@@ -685,56 +843,119 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         </div>
 
         {/* Messages */}
-        <div className="h-96 overflow-y-auto p-4 space-y-3 bg-gray-900/50">
+        <div className="h-96 overflow-y-auto p-4 space-y-4 bg-[#0b1220]">
           {messages.length === 0 && (
-            <div className="text-center text-gray-400 text-sm mt-8 space-y-3">
-              <div className="text-4xl">🤖</div>
-              <p className="font-medium">Hi! I'm Hina's AI Assistant</p>
-              <p className="text-xs text-gray-500">Powered by GROQ Llama 3.1</p>
+            <div className="text-center text-slate-400 text-sm mt-8 space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full border-2 border-amber-400/60 bg-amber-400/10 flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 text-amber-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <p className="font-medium text-slate-200">
+                Hi! I'm Hina's AI Assistant
+              </p>
+              <p className="text-xs text-slate-500">Powered by GROQ Llama 3.1</p>
               <div className="flex flex-wrap gap-2 justify-center mt-4">
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">
+                <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
                   Skills
                 </span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-purple-300">
+                <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
                   Projects
                 </span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-pink-300">
+                <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
                   Experience
                 </span>
-                <span className="text-xs bg-gray-800 px-3 py-1.5 rounded-full text-cyan-300">
+                <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
                   Contact
                 </span>
               </div>
             </div>
           )}
 
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`px-4 py-2 rounded-xl text-sm max-w-[85%] whitespace-pre-wrap ${
-                  msg.sender === "user"
-                    ? "bg-gradient-to-r from-cyan-500 to-purple-500 text-white"
-                    : "bg-gray-800 text-gray-100 border border-gray-700"
-                }`}
-              >
-                {msg.sender === "bot" && (
-                  <span className="text-xs text-cyan-400 mr-1">🤖</span>
-                )}
-                {msg.text}
+          {messages.map((msg, i) =>
+            msg.sender === "user" ? (
+              <div key={i} className="flex flex-col items-end">
+                <div className="px-4 py-2.5 rounded-2xl rounded-br-sm text-sm max-w-[85%] bg-slate-700 text-white whitespace-pre-wrap">
+                  {msg.text}
+                </div>
+                <span className="flex items-center gap-1 text-[10px] text-slate-500 mt-1 mr-1">
+                  {msg.time}
+                  <svg
+                    className="w-3 h-3 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </span>
               </div>
-            </div>
-          ))}
+            ) : (
+              <div key={i} className="flex items-start gap-2">
+                <div className="w-7 h-7 rounded-full border border-amber-400/50 bg-amber-400/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg
+                    className="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg>
+                </div>
+                <div className="flex flex-col items-start">
+                  <div className="px-4 py-2.5 rounded-2xl rounded-tl-sm text-sm max-w-[85%] bg-slate-800/80 border border-slate-700 text-slate-100 whitespace-pre-wrap">
+                    {msg.text}
+                  </div>
+                  <span className="text-[10px] text-slate-500 mt-1 ml-1">
+                    {msg.time}
+                  </span>
+                </div>
+              </div>
+            )
+          )}
 
           {loading && (
-            <div className="flex justify-start">
-              <div className="bg-gray-800 px-4 py-2 rounded-xl border border-gray-700">
+            <div className="flex items-start gap-2">
+              <div className="w-7 h-7 rounded-full border border-amber-400/50 bg-amber-400/10 flex items-center justify-center flex-shrink-0">
+                <svg
+                  className="w-3.5 h-3.5 text-amber-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <div className="bg-slate-800/80 border border-slate-700 px-4 py-2.5 rounded-2xl rounded-tl-sm">
                 <div className="flex gap-1.5">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce delay-200"></div>
+                  <div className="w-2 h-2 bg-amber-400 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-amber-400 rounded-full animate-bounce delay-100"></div>
+                  <div className="w-2 h-2 bg-amber-400 rounded-full animate-bounce delay-200"></div>
                 </div>
               </div>
             </div>
@@ -744,48 +965,70 @@ Keep responses friendly, concise (under 3 sentences), and professional. Only ans
         </div>
 
         {/* Input */}
-        <div className="p-4 bg-gray-900 border-t border-gray-800">
-          <div className="flex gap-2">
+        <div className="p-4 border-t border-amber-500/20 bg-[#0b1220]">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              sendMessage();
+            }}
+            className="flex items-center gap-2 bg-slate-800/70 border border-slate-700 rounded-full px-3 py-2 focus-within:border-amber-500/50 transition-colors"
+          >
+            <svg
+              className="w-4 h-4 text-slate-500 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              />
+            </svg>
             <input
-              className="flex-1 bg-gray-800 text-white border border-gray-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+              type="text"
+              inputMode="text"
+              enterKeyHint="send"
+              autoComplete="off"
+              autoCorrect="on"
+              className="flex-1 bg-transparent border-none outline-none text-sm text-white placeholder-slate-500"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me anything about Hina..."
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onKeyDown={(e) => {
+                // Avoid firing on IME composition (important for non-English keyboards)
+                if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
             />
             <button
-              onClick={sendMessage}
-              disabled={loading}
-              className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 rounded-xl text-sm font-semibold hover:shadow-lg transition-all disabled:opacity-50"
+              type="submit"
+              disabled={loading || !input.trim()}
+              className="w-9 h-9 rounded-lg bg-amber-400 hover:bg-amber-300 flex items-center justify-center flex-shrink-0 disabled:opacity-50 transition-colors"
             >
-              Send
+              <svg
+                className="w-4 h-4 text-slate-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v3.75m0 3h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
             </button>
-          </div>
-          <p className="text-[10px] text-gray-500 text-center mt-2">
-            🚀 Powered by GROQ Llama 3.1
-          </p>
-        </div>
-      </motion.div>
-    </>
-  );
-} /*
-              placeholder="Ask me anything about Hina..."
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            />
-            <button
-              onClick={sendMessage}
-              disabled={loading}
-              className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 rounded-xl text-sm font-semibold hover:shadow-lg transition-all disabled:opacity-50"
-            >
-              Send
-            </button>
-          </div>
-          <p className="text-[10px] text-gray-500 text-center mt-2">
-            🚀 Powered by GROQ Llama 3.1
+          </form>
+          <p className="text-center text-[11px] text-amber-400/70 mt-3">
+            ✦ Powered by GROQ Llama 3.1
           </p>
         </div>
       </motion.div>
     </>
   );
 }
-*/

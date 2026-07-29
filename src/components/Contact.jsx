@@ -129,10 +129,7 @@ export default function Contact() {
               Touch
             </span>
           </h2>
-          <p className="mt-4 text-sm text-slate-300 sm:text-lg">
-            Have a project in mind or just want to say hello? I&apos;d love to
-            hear from you!
-          </p>
+      
           <div className="mx-auto mt-5 flex max-w-xs items-center gap-3 text-blue-400">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500" />
             <span>✦</span>
