@@ -17,6 +17,7 @@ import {
   FiGithub,
   FiLinkedin,
   FiBriefcase,
+  FiZap,
 } from "react-icons/fi";
 
 export default function About() {
@@ -43,8 +44,11 @@ export default function About() {
 
   const languages = [
     { name: "Hindi", level: "Fluent", color: "from-orange-400 to-red-500" },
-    { name: "English", level: "Professional", color: "from-blue-400 to-cyan-500" },
-    { name: "Marathi", level: "Fluent", color: "from-green-400 to-emerald-500" },
+    {
+      name: "English",
+      level: "Fluent",
+      color: "from-blue-400 to-cyan-500",
+    },
   ];
 
   const education = [
@@ -85,7 +89,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-12 sm:py-10 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden"
+      className="py-10 sm:py-10 md:py-20 px-3 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden"
     >
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -94,7 +98,7 @@ export default function About() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:50px_50px] opacity-20"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-sm sm:max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
           className="text-center mb-8 sm:mb-10 md:mb-12"
@@ -115,23 +119,13 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
+            className="font-serif text-3xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
           >
             <span className="text-white">About </span>
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Me
             </span>
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-sm max-w-2xl mx-auto px-2"
-          >
-            Results-driven MERN Stack Developer passionate about building scalable, secure, and high-performance web applications
-          </motion.p>
         </motion.div>
 
         {/* Main Content */}
@@ -147,7 +141,7 @@ export default function About() {
             {/* Personal Details Card */}
             <motion.div
               variants={itemVariants}
-              className="p-5 rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50"
+              className="p-4 sm:p-5 rounded-xl bg-gradient-to-br from-[#071125]/90 to-[#050b17]/80 backdrop-blur-sm border border-slate-700/50 shadow-xl"
             >
               <h3 className="text-base font-semibold text-white mb-4 flex items-center gap-2">
                 <span className="bg-gradient-to-r from-cyan-500 to-purple-500 p-1.5 rounded-lg">
@@ -156,43 +150,53 @@ export default function About() {
                 Personal Details
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-gray-300">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 sm:gap-3">
+                <div className="divide-y divide-slate-700/40">
+                  <div className="flex items-center gap-2 text-gray-300 py-2">
                     <FiUser className="text-cyan-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Full Name</p>
-                      <p className="text-sm font-medium">{personalInfo.fullName}</p>
+                      <p className="text-sm font-medium">
+                        {personalInfo.fullName}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-300 py-2">
                     <FiPhone className="text-purple-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Mobile Number</p>
-                      <p className="text-sm font-medium">{personalInfo.mobile}</p>
+                      <p className="text-sm font-medium">
+                        {personalInfo.mobile}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-300 py-2">
                     <FiMapPin className="text-pink-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Address</p>
-                      <p className="text-sm font-medium">{personalInfo.address}</p>
+                      <p className="text-sm font-medium">
+                        {personalInfo.address}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-gray-300">
+                <div className="divide-y divide-slate-700/40">
+                  <div className="flex items-center gap-2 text-gray-300 py-2">
                     <FiMail className="text-cyan-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Email</p>
-                      <p className="text-sm font-medium break-all">{personalInfo.email}</p>
+                      <p className="text-sm font-medium break-all">
+                        {personalInfo.email}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-300">
+                  <div className="flex items-center gap-2 text-gray-300 py-2">
                     <FiGlobe className="text-purple-400 text-sm flex-shrink-0" />
                     <div>
                       <p className="text-[11px] text-gray-500">Nationality</p>
-                      <p className="text-sm font-medium">{personalInfo.nationality}</p>
+                      <p className="text-sm font-medium">
+                        {personalInfo.nationality}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -200,7 +204,9 @@ export default function About() {
 
               {/* Languages */}
               <div className="mt-4 pt-3 border-t border-gray-700/50">
-                <h4 className="text-xs font-semibold text-white mb-2">Languages</h4>
+                <h4 className="text-xs font-semibold text-white mb-2">
+                  Languages
+                </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {languages.map((lang, index) => (
                     <span
@@ -214,8 +220,10 @@ export default function About() {
               </div>
 
               {/* Social Links */}
-              <div className="mt-4 pt-3 border-t border-gray-700/50">
-                <h4 className="text-xs font-semibold text-white mb-2">Connect with Me</h4>
+              {/* <div className="mt-4 pt-3 border-t border-gray-700/50">
+                <h4 className="text-xs font-semibold text-white mb-2">
+                  Connect with Me
+                </h4>
                 <div className="flex gap-2">
                   <motion.a
                     href={personalInfo.github}
@@ -246,7 +254,7 @@ export default function About() {
                     <FiMail className="h-4 w-4" />
                   </motion.a>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
           </motion.div>
 
@@ -261,7 +269,7 @@ export default function About() {
             {/* Education */}
             <motion.div
               variants={itemVariants}
-              className="p-5 rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50"
+              className="p-4 sm:p-5 rounded-xl bg-gradient-to-br from-[#071125]/90 to-[#050b17]/80 backdrop-blur-sm border border-slate-700/50 shadow-xl"
             >
               <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
                 <span className="bg-gradient-to-r from-purple-500 to-pink-500 p-1.5 rounded-lg">
@@ -273,9 +281,11 @@ export default function About() {
               {education.map((edu, index) => (
                 <div
                   key={index}
-                  className="flex gap-3 p-3 rounded-xl bg-gray-800/30 border border-gray-700/50 hover:border-purple-500/30 transition-all duration-300"
+                  className="flex gap-3 p-3 rounded-xl bg-[#09142a]/70 border border-slate-700/50 hover:border-purple-500/30 transition-all duration-300"
                 >
-                  <div className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-r ${edu.color} flex items-center justify-center`}>
+                  <div
+                    className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-r ${edu.color} flex items-center justify-center`}
+                  >
                     {edu.icon}
                   </div>
                   <div>
@@ -294,7 +304,7 @@ export default function About() {
             </motion.div>
 
             {/* What I Bring */}
-            <div className="p-5 rounded-xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-800/50">
+            <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-br from-[#071125]/90 to-[#050b17]/80 backdrop-blur-sm border border-slate-700/50 shadow-xl">
               <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
                 <span className="bg-gradient-to-r from-emerald-500 to-teal-500 p-1.5 rounded-lg">
                   <FiUsers className="h-3.5 w-3.5" />
@@ -307,29 +317,44 @@ export default function About() {
                   {
                     quality: "Problem Solving",
                     desc: "Strong analytical and debugging skills",
+                    icon: <FiTrendingUp />,
+                    color: "text-cyan-300 bg-cyan-500/10",
                   },
                   {
                     quality: "Clean Code",
                     desc: "Structured and maintainable coding practices",
+                    icon: <FiCode />,
+                    color: "text-purple-300 bg-purple-500/10",
                   },
                   {
                     quality: "Fast Learner",
                     desc: "Quick adaptation to modern technologies",
+                    icon: <FiZap />,
+                    color: "text-amber-300 bg-amber-500/10",
                   },
                   {
                     quality: "Team Collaboration",
                     desc: "Effective communication & teamwork",
+                    icon: <FiUsers />,
+                    color: "text-pink-300 bg-pink-500/10",
                   },
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="p-2.5 rounded-lg bg-gray-800/30 border border-gray-700/50 hover:border-emerald-500/30 transition-all duration-300"
+                    className="flex gap-3 p-3 rounded-lg bg-[#09142a]/70 border border-slate-700/50 hover:border-emerald-500/30 transition-all duration-300"
                   >
-                    <div className="text-sm font-semibold text-white">
-                      {item.quality}
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      {item.desc}
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${item.color}`}
+                    >
+                      {item.icon}
+                    </span>
+                    <div>
+                      <div className="text-sm font-semibold text-white">
+                        {item.quality}
+                      </div>
+                      <div className="text-xs text-gray-400 leading-5">
+                        {item.desc}
+                      </div>
                     </div>
                   </div>
                 ))}

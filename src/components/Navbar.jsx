@@ -151,13 +151,13 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-gray-900/90 backdrop-blur-xl shadow-2xl py-3 border-b border-gray-800/50"
-            : "bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-transparent py-5"
+            ? "py-0"
+            : "py-0"
         }`}
       >
         {/* Gradient accent line */}
         <motion.div
-          className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500"
+          className="hidden"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -165,7 +165,7 @@ export default function Navbar() {
 
         {/* Floating particles - only when mounted */}
         {mounted && (
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="hidden">
             {[...Array(15)].map((_, i) => (
               <motion.div
                 key={i}
@@ -188,8 +188,8 @@ export default function Navbar() {
           </div>
         )}
 
-        <div className="container mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between">
+        <div className="w-full h-[68px] px-5 sm:px-8 lg:px-12 rounded-b-xl border-x border-b border-white/15 bg-[#030914]/95 backdrop-blur-xl shadow-xl">
+          <div className="flex h-full items-center justify-between">
             {/* Logo with animated gradient */}
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -197,36 +197,33 @@ export default function Navbar() {
               className="relative group"
             >
               <Link
-                href="#about"
-                onClick={() => setActiveSection("home")}
+                href="/about"
+                onClick={() => setActiveSection("about")}
                 className="relative z-10"
               >
                 <div className="flex items-center gap-3">
                   {/* Logo icon */}
                   <motion.div
-                    className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center"
-                    animate={{ rotate: [0, 360] }}
+                    className="relative w-8 h-8 rotate-45 rounded-md border border-amber-300 bg-[#08101e] flex items-center justify-center"
+                    animate={{ rotate: [45, 45] }}
                     transition={{
                       duration: 20,
                       repeat: Infinity,
                       ease: "linear",
                     }}
                   >
-                    <div className="absolute inset-1 rounded-lg bg-gray-900"></div>
-                    <span className="relative text-lg font-bold bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">
+                    <span className="relative -rotate-45 text-[10px] font-bold text-amber-300">
                       HM
                     </span>
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
                   </motion.div>
 
                   {/* Text logo */}
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                    <span className="font-serif text-xl font-semibold bg-gradient-to-r from-white via-white to-amber-300 bg-clip-text text-transparent">
                       Hina Murme
                     </span>
                     <motion.div
-                      className="h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full"
+                      className="h-px bg-gradient-to-r from-amber-300 to-transparent rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 0.5, delay: 0.8 }}
@@ -237,7 +234,7 @@ export default function Navbar() {
             </motion.div>
 
             {/* Desktop Navigation - Center aligned */}
-            <div className="hidden lg:flex items-center space-x-1 absolute left-1/2 transform -translate-x-1/2">
+            <div className="hidden lg:flex items-center gap-1 absolute left-1/2 transform -translate-x-1/2">
               {navLinks.map((link) => (
                 <motion.div
                   key={link.id}
@@ -246,9 +243,9 @@ export default function Navbar() {
                   className="relative"
                 >
                   <Link
-                    href={`#${link.id}`}
+                    href={`/#${link.id}`}
                     onClick={() => setActiveSection(link.id)}
-                    className="relative px-6 py-2 group"
+                    className="relative px-4 py-5 group"
                   >
                     {/* Animated scale layer */}
                     <motion.div
@@ -261,7 +258,7 @@ export default function Navbar() {
 
                     {/* Icon + Text */}
                     <div className="relative flex items-center gap-2">
-                      <motion.span
+                      {link.id === "home" && <motion.span
                         animate={{
                           scale: activeSection === link.id ? 1.2 : 1,
                           rotate:
@@ -271,13 +268,13 @@ export default function Navbar() {
                         className="text-lg"
                       >
                         {link.icon}
-                      </motion.span>
+                      </motion.span>}
 
                       <span
                         className={`font-medium ${
                           activeSection === link.id
-                            ? "text-transparent bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 bg-clip-text"
-                            : "text-gray-300 group-hover:text-white"
+                          ? "text-amber-300"
+                          : "text-slate-300 group-hover:text-white"
                         } transition-colors duration-300`}
                       >
                         {link.label}
@@ -288,7 +285,7 @@ export default function Navbar() {
                     {activeSection === link.id && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute -bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full"
+                        className="absolute bottom-1 left-4 right-4 h-px bg-amber-300 rounded-full"
                       />
                     )}
                   </Link>
@@ -297,9 +294,9 @@ export default function Navbar() {
             </div>
 
             {/* Right side - Social & CTA */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center">
               {/* Social Links */}
-              <div className="flex items-center space-x-3 mr-6">
+              <div className="flex items-center space-x-2">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
@@ -308,7 +305,7 @@ export default function Navbar() {
                     rel="noopener noreferrer"
                     whileHover={{ y: -3, scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`relative p-2 rounded-lg bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 ${social.color} text-gray-300 hover:text-white transition-colors group`}
+                    className={`relative p-2 rounded-md bg-slate-950/50 backdrop-blur-sm border border-white/10 ${social.color} text-slate-300 hover:text-amber-200 transition-colors group`}
                   >
                     <div className="relative z-10">{social.icon}</div>
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 to-purple-500/0 rounded-lg group-hover:from-cyan-500/10 group-hover:to-purple-500/10 transition-all duration-300" />
@@ -387,7 +384,7 @@ export default function Navbar() {
                       transition={{ delay: index * 0.1 }}
                     >
                       <Link
-                        href={`#${link.id}`}
+                        href={`/#${link.id}`}
                         className={`flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 group ${
                           activeSection === link.id
                             ? "bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 border border-cyan-500/30 border-purple-500/30 border-pink-500/30"
@@ -459,7 +456,7 @@ export default function Navbar() {
                     className="pt-6 px-4"
                   >
                     <Link
-                      href="#contact"
+                      href="/#contact"
                       className="block px-6 py-4 bg-gradient-to-r from-cyan-600 via-purple-600 to-pink-600 text-white font-semibold rounded-xl text-center shadow-lg hover:shadow-xl transition-all duration-300 group"
                       onClick={() => {
                         setIsMenuOpen(false);
