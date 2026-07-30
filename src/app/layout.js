@@ -4,12 +4,12 @@ import Chatbot from "@/components/Chatbot";
 import "./globals.css";
 
 export const metadata = {
-  title: "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
+  title: "Hina Murme | Project Engineer | Full Stack Developer",
 
   description:
-    "Hina Murme is a MERN Stack Developer, Python Developer, and LLM Developer specializing in React.js, Next.js, Node.js, Express.js, MongoDB, Python, Generative AI, and Large Language Models.",
+    "Project Engineer with 1+ year of experience in MERN Stack and Next.js development. Specializing in full-stack web applications, REST APIs, and secure authentication.",
 
-    icons: {
+  icons: {
     icon: "/logo.png",
   },
 
@@ -19,23 +19,18 @@ export const metadata = {
 
   keywords: [
     "Hina Murme",
+    "Project Engineer",
+    "Full Stack Developer",
     "MERN Stack Developer",
-    "Python Developer",
-    "LLM Developer",
-    "Generative AI",
-    "React Developer",
     "Next.js Developer",
+    "React Developer",
     "Node.js Developer",
     "Express.js Developer",
     "MongoDB Developer",
     "JavaScript Developer",
-    "Full Stack Developer",
-    "OpenAI",
-    "LangChain",
-    "RAG",
-    "Vector Database",
-    "AI Developer",
+    "REST API Developer",
     "Portfolio",
+    "Dexterous Technology",
   ],
 
   authors: [
@@ -55,11 +50,9 @@ export const metadata = {
   },
 
   openGraph: {
-    title:
-      "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
-
+    title: "Hina Murme | Project Engineer | Full Stack Developer",
     description:
-      "Portfolio of MERN Stack Developer, Python Developer and LLM Developer specializing in modern web applications and Generative AI.",
+      "Project Engineer with 1+ year experience in Full Stack and Next.js. Building scalable full-stack web applications with secure authentication and responsive UIs.",
 
     url: "https://hina-murme.vercel.app",
 
@@ -81,11 +74,9 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "Hina Murme | MERN Stack Developer | Python Developer | LLM Developer",
-
+    title: "Hina Murme | Project Engineer | Full Stack Developer",
     description:
-      "Portfolio of MERN Stack Developer, Python Developer and LLM Developer.",
+      "Project Engineer specializing in MERN Stack, Next.js, and full-stack development.",
 
     images: ["/pic.png"],
   },
@@ -120,8 +111,7 @@ export default function RootLayout({ children }) {
     url: "https://hina-murme.vercel.app",
     image: "https://hina-murme.vercel.app/pic.png",
 
-    jobTitle:
-      "MERN Stack Developer | Python Developer | LLM Developer",
+    jobTitle: "Project Python Developer | LLM Developer",
 
     description:
       "MERN Stack Developer, Python Developer and LLM Developer specializing in React.js, Next.js, Node.js, MongoDB, Python and Generative AI.",
