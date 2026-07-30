@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   FiGithub,
@@ -106,6 +106,9 @@ export default function Navbar() {
   const [darkMode, setDarkMode] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
+  const [isManualNav, setIsManualNav] = useState(false);
+  const manualNavTimeoutRef = useRef(null);
+  const initialScrollDoneRef = useRef(false);
 
   // Initialize dark mode from localStorage (only on client)
   useEffect(() => {
@@ -167,30 +170,141 @@ export default function Navbar() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mounted]);
 
-  // Scroll effect
+  // Manual navigation handler - works for ALL links
+  const handleNavClick = (id, e) => {
+    // Prevent default if needed
+    if (e) e.preventDefault();
+    
+    // Set manual navigation flag
+    setIsManualNav(true);
+    
+    // Immediately update active section
+    setActiveSection(id);
+    
+    // Clear any existing timeout
+    if (manualNavTimeoutRef.current) {
+      clearTimeout(manualNavTimeoutRef.current);
+    }
+    
+    // Re-enable scroll-based detection after the scroll settles
+    manualNavTimeoutRef.current = setTimeout(() => {
+      setIsManualNav(false);
+      manualNavTimeoutRef.current = null;
+    }, 1200); // Slightly longer to ensure smooth transition
+    
+    // If we prevented default, manually navigate
+    if (e) {
+      const targetId = id;
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Update URL hash without causing scroll
+      window.history.pushState(null, '', `/#${targetId}`);
+    }
+  };
+
+  // Handle hash change from browser back/forward buttons
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && navLinks.some(link => link.id === hash)) {
+        // Don't set isManualNav for hash changes from user navigation
+        // but update the active section
+        setActiveSection(hash);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [mounted]);
+
+  // Scroll effect - UPDATED with manual nav check
   useEffect(() => {
     if (!mounted) return;
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const currentSection = navLinks.find((section) => {
+      // Skip scroll-based updates during manual navigation
+      if (isManualNav) return;
+
+      // Find which section is currently in view
+      let foundSection = null;
+      let minDistance = Infinity;
+      
+      for (const section of navLinks) {
         const element = document.getElementById(section.id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          const distanceFromTop = Math.abs(rect.top - 100);
+          
+          // Check if section is in viewport
+          if (rect.top <= 150 && rect.bottom >= 50) {
+            if (distanceFromTop < minDistance) {
+              minDistance = distanceFromTop;
+              foundSection = section;
+            }
+          }
         }
-        return false;
-      });
+      }
 
-      if (currentSection) setActiveSection(currentSection.id);
+      // Fallback: if no section found, check which is closest to top
+      if (!foundSection) {
+        let closestSection = null;
+        let closestDistance = Infinity;
+        
+        for (const section of navLinks) {
+          const element = document.getElementById(section.id);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            const distance = Math.abs(rect.top);
+            if (distance < closestDistance && rect.bottom > 0) {
+              closestDistance = distance;
+              closestSection = section;
+            }
+          }
+        }
+        foundSection = closestSection;
+      }
+
+      if (foundSection) {
+        setActiveSection(foundSection.id);
+      }
+    };
+
+    // Initial check after mount
+    const initialCheck = () => {
+      if (!initialScrollDoneRef.current) {
+        handleScroll();
+        initialScrollDoneRef.current = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
+    // Check immediately and after a small delay to ensure DOM is ready
+    setTimeout(initialCheck, 100);
+    initialCheck();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [mounted]); // Removed navLinks dependency since it's now constant
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (manualNavTimeoutRef.current) {
+        clearTimeout(manualNavTimeoutRef.current);
+      }
+    };
+  }, [mounted, isManualNav]);
+
+  // Update active section when URL hash changes (for all links)
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const hash = window.location.hash.replace('#', '');
+    if (hash && navLinks.some(link => link.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, [mounted]);
 
   // Prevent hydration mismatch - return null on server
   if (!mounted) return null;
@@ -252,7 +366,7 @@ export default function Navbar() {
           </div>
         )}
 
-        <div className="w-full h-[68px] px-5 sm:px-8 lg:px-12 rounded-b-xl border-x border-b border-white/15 bg-[#030914]/95 backdrop-blur-xl shadow-xl">
+        <div className="w-full h-[68px] px-5 sm:px-8 lg:px-12  border-x border-b border-white/15 bg-[#030914]/95 backdrop-blur-xl shadow-xl">
           <div className="flex h-full items-center justify-between">
             {/* Logo with animated gradient */}
             <motion.div
@@ -262,7 +376,7 @@ export default function Navbar() {
             >
               <Link
                 href="/#home"
-                onClick={() => setActiveSection("about")}
+                onClick={(e) => handleNavClick("home", e)}
                 className="relative z-10"
               >
                 <div className="flex items-center gap-3">
@@ -308,7 +422,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={`/#${link.id}`}
-                    onClick={() => setActiveSection(link.id)}
+                    onClick={(e) => handleNavClick(link.id, e)}
                     className="relative px-4 py-5 group"
                   >
                     {/* Animated scale layer */}
@@ -426,7 +540,7 @@ export default function Navbar() {
         className="lg:hidden fixed bottom-0 left-0 right-0 z-50 w-full"
       >
         <div
-          className="relative w-full rounded-t-[12px] border-t border-x border-white/10 bg-[#030914]/95 backdrop-blur-xl shadow-2xl overflow-hidden py-1"
+          className="relative w-full rounded-t-[1px] border-t border-x border-white/10 bg-[#030914]/95 backdrop-blur-xl shadow-2xl overflow-hidden py-1"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
           {/* Ambient amber glow hugging the top-left edge of the pill */}
@@ -445,7 +559,7 @@ export default function Navbar() {
                 <Link
                   key={link.id}
                   href={`/#${link.id}`}
-                  onClick={() => setActiveSection(link.id)}
+                  onClick={(e) => handleNavClick(link.id, e)}
                   className="relative flex-1"
                   aria-label={link.label}
                 >
