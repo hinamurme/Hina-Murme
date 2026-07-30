@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -7,18 +7,28 @@ import { useEffect, useState, useRef } from "react";
 
 // Move constants outside component
 const roles = [
-  "MERN Stack Developer",
-  "Full-Stack Web Developer",
-  "REST API Specialist",
-  "Authentication System Developer",
-  "Responsive UI Builder",
-  "MongoDB Database Developer",
+  "Project Engineer",
+  "Full Stack Developer",
+  "MERN Stack Specialist",
+  "AI/LLM Integration Engineer",
+  "Cloud & DevOps Enthusiast",
+  "UI/UX Responsive Designer",
+  "SEO & Performance Optimizer"
 ];
 
 // Resume data for AI Assistant
 const RESUME_DATA = {
   name: "Hina Murme",
   role: "Project Engineer (Full Stack Developer)",
+  roles: [
+    "Project Engineer",
+    "Full Stack Developer",
+    "MERN Stack Specialist",
+    "AI/LLM Integration Engineer",
+    "Cloud & DevOps Enthusiast",
+    "UI/UX Responsive Designer",
+    "SEO & Performance Optimizer"
+  ],
   experience: "1+ year",
   email: "murmehina45@gmail.com",
   phone: "+91-9284042371",
@@ -494,30 +504,19 @@ export default function Hero() {
               </motion.div>
 
               {/* Description */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                <p className="text-base sm:text-lg text-slate-300 leading-8 max-w-2xl mx-auto lg:mx-0">
-                  Passionate MERN Stack Developer with hands-on experience in
-                  building
-                  <span className="text-cyan-300 font-medium">
-                    {" "}
-                    full-stack applications
-                  </span>
-                  , designing{" "}
-                  <span className="text-purple-300 font-medium">
-                    RESTful APIs
-                  </span>
-                  , and implementing secure{" "}
-                  <span className="text-pink-300 font-medium">
-                    JWT authentication
-                  </span>
-                  . I craft responsive, user-centric web solutions using React,
-                  Node.js, and MongoDB.
-                </p>
-              </motion.div>
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7, delay: 0.2 }}
+>
+  <p className="text-base sm:text-lg text-slate-300 leading-8 max-w-2xl mx-auto lg:mx-0">
+    <span className="text-cyan-300 font-medium">Full-stack Project Engineer</span>{" "}
+    crafting scalable web apps with <span className="text-purple-300 font-medium">MERN</span>, 
+    <span className="text-cyan-300 font-medium"> Next.js</span>, and{" "}
+    <span className="text-pink-300 font-medium">AI</span>. Focused on clean code, 
+    performance, and seamless user experiences.
+  </p>
+</motion.div>
 
               {/* CTA Buttons */}
               <motion.div
@@ -720,17 +719,23 @@ Location: ${RESUME_DATA.location}
 Skills: ${RESUME_DATA.skills.join(", ")}
 
 Experience:
-${RESUME_DATA.experience_details.map(exp => 
-  `- ${exp.title} at ${exp.company} (${exp.period})
-   Responsibilities: ${exp.responsibilities.join(" ")}`
-).join("\n")}
+${RESUME_DATA.experience_details
+  .map(
+    (exp) =>
+      `- ${exp.title} at ${exp.company} (${exp.period})
+   Responsibilities: ${exp.responsibilities.join(" ")}`,
+  )
+  .join("\n")}
 
 Projects:
-${RESUME_DATA.projects.map(proj =>
-  `- ${proj.name}
+${RESUME_DATA.projects
+  .map(
+    (proj) =>
+      `- ${proj.name}
    Tech: ${proj.tech}
-   Details: ${proj.details.join(" ")}`
-).join("\n")}
+   Details: ${proj.details.join(" ")}`,
+  )
+  .join("\n")}
 
 Education: ${RESUME_DATA.education.degree} from ${RESUME_DATA.education.university}, Percentage: ${RESUME_DATA.education.percentage}
 
@@ -864,7 +869,9 @@ LinkedIn: ${RESUME_DATA.linkedin}`,
               <p className="font-medium text-slate-200">
                 Hi! I'm Hina's AI Assistant
               </p>
-              <p className="text-xs text-slate-500">Powered by GROQ Llama 3.1</p>
+              <p className="text-xs text-slate-500">
+                Powered by GROQ Llama 3.1
+              </p>
               <div className="flex flex-wrap gap-2 justify-center mt-4">
                 <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
                   Skills
@@ -931,7 +938,7 @@ LinkedIn: ${RESUME_DATA.linkedin}`,
                   </span>
                 </div>
               </div>
-            )
+            ),
           )}
 
           {loading && (
