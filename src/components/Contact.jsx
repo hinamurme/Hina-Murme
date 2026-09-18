@@ -32,6 +32,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const socialLinks = [
     {
@@ -87,18 +88,57 @@ export default function Contact() {
     },
   ];
 
-  const handleChange = (event) =>
+  const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    if (errorMessage) setErrorMessage("");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const subject = formData.subject.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !subject || !message) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setErrorMessage("");
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to send message.");
+      }
+
+      setIsSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsSubmitted(false);
-    }, 3000);
+
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } catch (err) {
+      setErrorMessage(
+        err?.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -129,7 +169,7 @@ export default function Contact() {
               Touch
             </span>
           </h2>
-      
+
           <div className="mx-auto mt-5 flex max-w-xs items-center gap-3 text-blue-400">
             <span className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500" />
             <span>✦</span>
@@ -242,6 +282,17 @@ export default function Contact() {
                       required
                     />
                   </label>
+
+                  {errorMessage && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+                    >
+                      {errorMessage}
+                    </motion.p>
+                  )}
+
                   <motion.button
                     whileHover={isSubmitting ? {} : { scale: 1.01 }}
                     whileTap={isSubmitting ? {} : { scale: 0.99 }}
