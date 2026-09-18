@@ -168,8 +168,8 @@ const RESUME_DATA = {
   linkedin: "https://www.linkedin.com/in/hina-murme/",
 };
 
-const GROQ_API_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY;
-const GROQ_API_URL = process.env.NEXT_PUBLIC_GROQ_API_URL;
+// NOTE: Groq variables removed. Gemini is called via /api/chat (server-side only).
+// The system prompt + resume data now live in src/app/api/chat/route.js.
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -688,83 +688,33 @@ function Chatbot({ onClose }) {
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
 
     const userMsg = { sender: "user", text: input, time: formatTime() };
     setMessages((prev) => [...prev, userMsg]);
     setLoading(true);
+    setInput("");
 
     try {
-      const response = await fetch(GROQ_API_URL, {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama-3.1-8b-instant",
-          messages: [
-            {
-              role: "system",
-              content: `You are Hina Murme's portfolio assistant. ONLY provide real information about Hina based on the resume data provided below. Keep responses friendly, concise (under 3 sentences), and professional. Only answer based on this information. If asked something not in the resume, politely say you only have information from the resume.
-
-RESUME DATA:
-Name: ${RESUME_DATA.name}
-Role: ${RESUME_DATA.role}
-Experience: ${RESUME_DATA.experience}
-Email: ${RESUME_DATA.email}
-Phone: ${RESUME_DATA.phone}
-Location: ${RESUME_DATA.location}
-
-Skills: ${RESUME_DATA.skills.join(", ")}
-
-Experience:
-${RESUME_DATA.experience_details
-  .map(
-    (exp) =>
-      `- ${exp.title} at ${exp.company} (${exp.period})
-   Responsibilities: ${exp.responsibilities.join(" ")}`,
-  )
-  .join("\n")}
-
-Projects:
-${RESUME_DATA.projects
-  .map(
-    (proj) =>
-      `- ${proj.name}
-   Tech: ${proj.tech}
-   Details: ${proj.details.join(" ")}`,
-  )
-  .join("\n")}
-
-Education: ${RESUME_DATA.education.degree} from ${RESUME_DATA.education.university}, Percentage: ${RESUME_DATA.education.percentage}
-
-Portfolio: ${RESUME_DATA.portfolio}
-GitHub: ${RESUME_DATA.github}
-LinkedIn: ${RESUME_DATA.linkedin}`,
-            },
-            {
-              role: "user",
-              content: input,
-            },
-          ],
-          temperature: 0.7,
-          max_tokens: 150,
+          message: userMsg.text,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
+      const data = await response.json().catch(() => ({}));
 
-      const data = await response.json();
-      const botReply =
-        data.choices[0]?.message?.content ||
-        "Sorry, I couldn't process that request.";
+      if (!response.ok || !data.success || !data.reply) {
+        throw new Error(data.error || `API Error: ${response.status}`);
+      }
 
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: botReply, time: formatTime() },
+        { sender: "bot", text: data.reply, time: formatTime() },
       ]);
     } catch (error) {
       console.error("Chatbot Error:", error);
@@ -772,13 +722,12 @@ LinkedIn: ${RESUME_DATA.linkedin}`,
         ...prev,
         {
           sender: "bot",
-          text: "⚠️ Connection issue. Please check your API key or try again later.",
+          text: "⚠️ Connection issue. Please try again later.",
           time: formatTime(),
         },
       ]);
     } finally {
       setLoading(false);
-      setInput("");
     }
   };
 
@@ -870,7 +819,7 @@ LinkedIn: ${RESUME_DATA.linkedin}`,
                 Hi! I'm Hina's AI Assistant
               </p>
               <p className="text-xs text-slate-500">
-                Powered by GROQ Llama 3.1
+                Powered by Google Gemini
               </p>
               <div className="flex flex-wrap gap-2 justify-center mt-4">
                 <span className="text-xs bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full text-amber-300">
@@ -1032,7 +981,7 @@ LinkedIn: ${RESUME_DATA.linkedin}`,
             </button>
           </form>
           <p className="text-center text-[11px] text-amber-400/70 mt-3">
-            ✦ Powered by GROQ Llama 3.1
+            ✦ Powered by Google Gemini
           </p>
         </div>
       </motion.div>
